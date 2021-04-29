@@ -1,24 +1,8 @@
+:root {
+  --dark-color: rgba(42, 42, 46, 1);
+  --light-color: rgb(251, 251, 251);
+}
+
 body {
   margin: 0;
-}
-
-main {
-  align-content: center;
-  display: grid;
-  font-family: "Oxygen", sans-serif;
-  min-height: 100vh;
-  text-align: center;
-  background-color: rgb(251, 251, 251);
-}
-
-@media (prefers-color-scheme: dark) {
-  main {
-    background-color: rgba(42, 42, 46, 1);
-  }
-}
-
-h1 {
-  font-size: 45px;
-  font-weight: 300;
-  text-transform: capitalize;
 }

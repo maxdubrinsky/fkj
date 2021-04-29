@@ -23,6 +23,11 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
+"@now/build-utils@^2.7.0":
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/@now/build-utils/-/build-utils-2.7.0.tgz#a7d940eaf77e39d2c838482ffa2dbae1096d3aa7"
+  integrity sha512-5917PKoI3PgVkbEl3/tPMOR+z3UD20RTfoXhAwBEsP1HJAYEl+Mv5NawDgBLRsikz2drbZn1YTOLbadBujcPow==
+
 "@polka/url@^1.0.0-next.9":
   version "1.0.0-next.11"
   resolved "https://registry.yarnpkg.com/@polka/url/-/url-1.0.0-next.11.tgz#aeb16f50649a91af79dbe36574b66d0f9e4d9f71"
