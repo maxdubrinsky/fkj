@@ -1,16 +1,16 @@
 <script lang="ts">
   async function getName() {
     const res = await fetch("/api/name");
-    const n: { adverb: string; verb: string; noun: string } = await res.json();
-    return n;
+    const { parts }: { parts: string[] } = await res.json();
+    return parts;
   }
 </script>
 
 <main>
   {#await getName()}
     <div />
-  {:then name}
-    <h1>{name.adverb} {name.verb} {name.noun}</h1>
+  {:then parts}
+    <h1>{parts.join(" ")}</h1>
   {:catch}
     <h1>failure kraken joined</h1>
   {/await}

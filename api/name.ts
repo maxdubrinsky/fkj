@@ -1,8 +1,16 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import fetch from "node-fetch";
 
+const RAPID_API_HOST = "wordsapiv1.p.rapidapi.com";
+
+const POSSIBLE = [
+  ["adverb", "verb", "noun"],
+  ["verb", "adjective", "noun"],
+  ["adjective", "verb", "noun"],
+];
+
 async function makeWordsCall(part: string, startsWith: string) {
-  const url = new URL("/words/", "https://wordsapiv1.p.rapidapi.com");
+  const url = new URL("/words/", `https://${RAPID_API_HOST}`);
 
   url.searchParams.append("partOfSpeech", part);
   url.searchParams.append("letterPattern", `^${startsWith}\\w+$`);
@@ -11,7 +19,7 @@ async function makeWordsCall(part: string, startsWith: string) {
   const res = await fetch(url, {
     headers: {
       "x-rapidapi-key": process.env.WORDS_API_KEY,
-      "x-rapidapi-host": "wordsapiv1.p.rapidapi.com",
+      "x-rapidapi-host": RAPID_API_HOST,
       Accept: "application/json",
     },
   });
@@ -22,13 +30,17 @@ async function makeWordsCall(part: string, startsWith: string) {
 }
 
 async function name(req: VercelRequest, res: VercelResponse) {
-  const [adverb, verb, noun] = await Promise.all([
-    makeWordsCall("adverb", "f"),
-    makeWordsCall("verb", "k"),
-    makeWordsCall("noun", "j"),
+  const [first, second, third] = POSSIBLE[
+    Math.floor(Math.random() * POSSIBLE.length)
+  ];
+
+  const parts = await Promise.all([
+    makeWordsCall(first, "f"),
+    makeWordsCall(second, "k"),
+    makeWordsCall(third, "j"),
   ]);
 
-  res.json({ adverb, verb, noun });
+  res.json({ parts });
 }
 
 export default name;
