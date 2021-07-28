@@ -4,20 +4,36 @@
     const { parts }: { parts: string[] } = await res.json();
     return parts;
   }
+
+  function copy() {
+    const el = document.querySelector("#name") as HTMLInputElement;
+
+    el.select();
+
+    console.log(el.value)
+
+    document.execCommand("copy");
+  }
 </script>
 
 <main>
   {#await getName()}
     <div />
   {:then parts}
-    <h1>{parts.join(" ")}</h1>
+    <h1>
+      {parts.join(" ")}
+      <input id="name" type="text" value={parts.join("-")} />
+      <button id="copy" on:click={copy}>
+        <i class="ri-clipboard-line" />
+      </button>
+    </h1>
   {:catch}
     <h1>failure kraken joined</h1>
   {/await}
   <footer>
-    <a target="_blank" href="https://github.com/maxdubrinsky"
-      ><i class="ri-github-fill" /></a
-    >
+    <a target="_blank" href="https://github.com/maxdubrinsky">
+      <i class="ri-github-fill" />
+    </a>
   </footer>
 </main>
 
@@ -41,10 +57,33 @@
   }
 
   h1 {
+    display: block;
     font-size: 45px;
     font-weight: 300;
     text-transform: capitalize;
   }
+
+  #name {
+    position: absolute;
+    opacity: 0;
+    top:-100px;
+  }
+
+  #copy {
+    visibility: hidden;
+    display: block;
+    margin: 0 auto;
+    background: none;
+    border: none;
+    color: currentColor;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  h1:hover #copy {
+    visibility: visible;
+  }
+
   footer {
     display: flex;
     justify-content: center;
